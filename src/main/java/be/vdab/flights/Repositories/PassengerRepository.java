@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ import java.util.List;
 
 @Repository
 public class PassengerRepository {
+
+    @Autowired
+    DataSource dataSource;
 
     public PassengerRepository() {
         System.out.println("PassengerRepository wordt aangemaakt");

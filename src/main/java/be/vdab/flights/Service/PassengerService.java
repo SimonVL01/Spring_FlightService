@@ -3,6 +3,7 @@ package be.vdab.flights.Service;
 import be.vdab.flights.Repositories.PassengerRepository;
 import be.vdab.flights.domain.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
