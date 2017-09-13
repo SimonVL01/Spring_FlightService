@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Isolation;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -67,5 +68,9 @@ public class PassengerRepository {
 
     public void save(Passenger p) {
         em.persist(p);
+    }
+
+    public List<Passenger> findAllPassengers() {
+        return em.createQuery("SELECT p FROM Passenger p ORDER BY firstname", Passenger.class).getResultList();
     }
 }

@@ -14,6 +14,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import javax.persistence.TypedQuery;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Spliterator;
+
 @SpringBootApplication
 public class FlightsApplication {
 
@@ -27,7 +32,14 @@ public class FlightsApplication {
 		ReservationService rs = ac.getBean("reservationService", ReservationService.class);
 
 		PassengerRepository pr = ac.getBean(PassengerRepository.class);
-		Passenger p = new Passenger("Elijah", "Ballard", 50);
+
+        List<Passenger> pp = pr.findAllPassengers();
+
+        for (Passenger p : pp) {
+            System.out.println("Hello " + p.getFirstname());
+        }
+
+		/*Passenger p = new Passenger("Elijah", "Ballard", 50);
 		pr.save(p);
 
 		FlightRepository fr = ac.getBean(FlightRepository.class);
@@ -36,7 +48,8 @@ public class FlightsApplication {
 
 		TicketRepository tr = ac.getBean(TicketRepository.class);
 		Ticket t = new Ticket(70.0d, p, f);
-		tr.save(t);
+		tr.save(t);*/
 
-	}
+
+    }
 }
