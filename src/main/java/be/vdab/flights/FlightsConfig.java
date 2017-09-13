@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Configuration
 public class FlightsConfig {
-   @Bean
+   /*@Bean
     public DataSource dataSource() {
        DriverManagerDataSource ds = new DriverManagerDataSource();
        ds.setUrl("jdbc:mysql://localhost:3306/flights");
@@ -29,9 +29,9 @@ public class FlightsConfig {
        ds.setDriverClassName("com.mysql.jdbc.Driver");
        return ds;
 
-   }
+   }*/
 
-   @Bean
+   /*@Bean
    LocalContainerEntityManagerFactoryBean entityManager(DataSource ds, JpaVendorAdapter jpaVendorAdapter) {
       LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
       emf.setDataSource(ds);
@@ -52,6 +52,6 @@ public class FlightsConfig {
    @Bean
    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
      return new JpaTransactionManager(emf);
-   }
+   }*/
 
 }

@@ -5,8 +5,13 @@ import be.vdab.flights.domain.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +20,11 @@ import java.util.List;
  */
 
 @Repository
+@Transactional
 public class PassengerRepository {
 
-    @Autowired
-    DataSource dataSource;
+    @PersistenceContext
+    private EntityManager em;
 
     public PassengerRepository() {
         System.out.println("PassengerRepository wordt aangemaakt");
@@ -45,4 +51,21 @@ public class PassengerRepository {
         this.passengers = passengers;
     }
 
+    public Passenger readById(long id) {
+        System.out.println("Reading passenger by id.");
+        return em.find(Passenger.class, id);
+    }
+
+    public void deleteById(long id) {
+        Passenger p = em.getReference(Passenger.class, id);
+        em.remove(p);
+    }
+
+    public void update(Passenger p) {
+        em.merge(p);
+    }
+
+    public void save(Passenger p) {
+        em.persist(p);
+    }
 }

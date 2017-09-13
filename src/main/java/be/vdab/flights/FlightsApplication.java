@@ -18,15 +18,6 @@ import org.springframework.context.ApplicationContext;
 public class FlightsApplication {
 
 	public static void main(String[] args) {
-		/*ApplicationContext ac = SpringApplication.run(FlightsApplication.class, args);
-		String s = ac.getBean("myOtherBean", String.class);
-		System.out.println(s);
-		PassengerService p = ac.getBean("myPassengerService", PassengerService.class);
-		System.out.println(p.findAll());
-		p.stringify(p.findAll());
-
-		PassengerRepository pR = ac.getBean("myPassengerRepository", PassengerRepository.class);
-		System.out.println(pR.findAll());*/
 
 		ApplicationContext ac = SpringApplication.run(FlightsApplication.class, args);
 		FlightService fl = ac.getBean("flightService", FlightService.class);
@@ -35,12 +26,17 @@ public class FlightsApplication {
 
 		ReservationService rs = ac.getBean("reservationService", ReservationService.class);
 
-		/*FlightRepository fr = ac.getBean("flightRepository", FlightRepository.class);
-		PassengerRepository pr = ac.getBean("passengerRepository", PassengerRepository.class);
-		TicketRepository tr = ac.getBean("ticketService", TicketRepository.class);
+		PassengerRepository pr = ac.getBean(PassengerRepository.class);
+		Passenger p = new Passenger("Elijah", "Ballard", 50);
+		pr.save(p);
 
-		Flight f = ac.getBean("flight", Flight.class);
-		Passenger p = ac.getBean("passenger", Passenger.class);
-		Ticket t = ac.getBean("ticket", Ticket.class);*/
+		FlightRepository fr = ac.getBean(FlightRepository.class);
+		Flight f = new Flight("Italy", "Bxl", "59");
+		fr.save(f);
+
+		TicketRepository tr = ac.getBean(TicketRepository.class);
+		Ticket t = new Ticket(70.0d, p, f);
+		tr.save(t);
+
 	}
 }

@@ -6,7 +6,10 @@ import be.vdab.flights.domain.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +18,13 @@ import java.util.List;
  */
 
 @Repository
+@Transactional
 public class TicketRepository {
 
-    Ticket ticket;
+    @PersistenceContext
+    private EntityManager em;
+
+    private Ticket ticket;
 
     private double price;
 
@@ -51,5 +58,22 @@ public class TicketRepository {
 
     public Ticket persist(Passenger passenger, double price, Flight flight) {
         return null;
+    }
+
+    public Ticket readById(long id) {
+        return em.find(Ticket.class, id);
+    }
+
+    public void deleteById(long id) {
+        Ticket t = em.getReference(Ticket.class, id);
+        em.remove(t);
+    }
+
+    public void update(Ticket t) {
+        em.merge(t);
+    }
+
+    public void save(Ticket t) {
+        em.persist(t);
     }
 }
