@@ -58,7 +58,6 @@ public class Ticket {
         this.passenger = passenger;
         passenger.addTicket(this);
     }
-
     public Flight getFlight() {
         return flight;
     }

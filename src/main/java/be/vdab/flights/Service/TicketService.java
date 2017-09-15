@@ -17,6 +17,10 @@ import java.util.List;
 @Service
 public class TicketService {
 
+    public TicketService(TicketRepository tr) {
+        this.tr = tr;
+    }
+
     public TicketService() {
         System.out.println("TicketService gemaakt.");
     }
@@ -24,16 +28,16 @@ public class TicketService {
     @Autowired
     private TicketRepository tr;
 
-    public List<Double> findAll() {
+    public List<Ticket> findAll() {
 
         System.out.println("TicketService wordt gedelegeerd");
-        tr.findAll();
-        return tr.getTickets();
+        List <Ticket> t = tr.findAll();
+        return t;
     }
 
-    public Ticket create(Passenger passenger, double price, Flight flight) {
-        return tr.persist(passenger, price, flight);
+    /*public Ticket create(Passenger passenger, double price, Flight flight) {
+        return tr.addFullTicket(passenger, price, flight);
 
-    }
+    }*/
 
 }

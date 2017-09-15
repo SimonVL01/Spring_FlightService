@@ -31,24 +31,34 @@ public class FlightsApplication {
 
 		ReservationService rs = ac.getBean("reservationService", ReservationService.class);
 
-		PassengerRepository pr = ac.getBean(PassengerRepository.class);
+		PassengerRepository pr = ac.getBean("passengerRepository" , PassengerRepository.class);
 
-        List<Passenger> pp = pr.findAllPassengers();
+        List<Passenger> pp = pr.findAll();
 
         for (Passenger p : pp) {
             System.out.println("Hello " + p.getFirstname());
         }
 
-		/*Passenger p = new Passenger("Elijah", "Ballard", 50);
+		Passenger p = new Passenger("Elijah", "Ballard", 50);
 		pr.save(p);
 
-		FlightRepository fr = ac.getBean(FlightRepository.class);
+		FlightRepository fr = ac.getBean("flightRepository" ,FlightRepository.class);
+
 		Flight f = new Flight("Italy", "Bxl", "59");
 		fr.save(f);
 
-		TicketRepository tr = ac.getBean(TicketRepository.class);
-		Ticket t = new Ticket(70.0d, p, f);
+
+		TicketRepository tr = ac.getBean("ticketRepository" ,TicketRepository.class);
+		//tr.countTicketsPerPassenger("Elijah");
+		tr.findByPrice(179.5);
+		tr.countByPriceIsGreaterThanOrderByPrice(127.0);
+		tr.findByPriceIsGreaterThanOrderByPrice(127.0);
+
+
+		/*Ticket t = new Ticket(70.0d, p, f);
 		tr.save(t);*/
+
+
 
 
     }

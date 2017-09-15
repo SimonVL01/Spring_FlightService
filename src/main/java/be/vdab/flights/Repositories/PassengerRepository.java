@@ -3,6 +3,7 @@ package be.vdab.flights.Repositories;
 import be.vdab.flights.domain.Flight;
 import be.vdab.flights.domain.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -20,11 +21,21 @@ import java.util.List;
  * Created by vdabcursist on 12/09/2017.
  */
 
-@Repository
-@Transactional
-public class PassengerRepository {
+public interface PassengerRepository extends JpaRepository<Passenger, Long> {
 
-    @PersistenceContext
+   long deleteById(long id);
+
+    //List <Passenger> findAllOrderByFirstname();
+
+    //Passenger findByLastName(String lastname);
+
+    //Passenger findByFirstNameOrLastName(String firstname, String lastname);
+
+    Passenger findByFrequentFlyerMiles(int frequentFlyerMiles);
+
+}
+
+    /*@PersistenceContext
     private EntityManager em;
 
     public PassengerRepository() {
@@ -72,5 +83,4 @@ public class PassengerRepository {
 
     public List<Passenger> findAllPassengers() {
         return em.createQuery("SELECT p FROM Passenger p ORDER BY firstname", Passenger.class).getResultList();
-    }
-}
+    }*/

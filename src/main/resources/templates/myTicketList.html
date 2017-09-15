@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ticket List</title>
+</head>
+<body>
+<h1>Mijn ticket list</h1>
+<p>Dit is mijn eerste lijst.</p>
+
+<!--Klik <a href="tickets.html">hier</a> om naar mijn tickets te gaan.-->
+
+<img src="img/Gco2IbX.jpg"/>
+
+<table>
+    <tr th:each="t : ${flightTickets}">
+        <td th:text="${t.price}"></td>
+        <td th:text="${t.passenger.firstname}"></td>
+        <td th:text="${t.passenger.lastname}"></td>
+        <td th:text="${t.flight.number}"></td>
+    </tr>
+</table>
+
+<div th:text="${flightTickets}"></div>
+
+</body>
+</html>

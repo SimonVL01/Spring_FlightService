@@ -30,9 +30,9 @@ public class ReservationService {
     @Autowired
     TicketService ticket;
 
-    public Ticket bookTicketForFlight(Passenger passenger, Flight flight) {
+    /*public Ticket bookTicketForFlight(Passenger passenger, Flight flight) {
         System.out.println("Ticket is booked.");
 
         return ticket.create(passenger, 50.0d, flight);
-    }
+    }*/
 }

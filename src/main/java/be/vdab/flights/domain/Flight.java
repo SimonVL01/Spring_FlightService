@@ -65,4 +65,13 @@ public class Flight {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    @Override
+    public String toString() {
+        return "Flight: " +
+                "id=" + id +
+                ", destination='" + destination + '\'' +
+                ", departure='" + departure + '\'' +
+                ", number='" + number + '\'';
+    }
 }

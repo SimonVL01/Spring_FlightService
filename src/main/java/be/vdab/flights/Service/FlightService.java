@@ -1,6 +1,7 @@
 package be.vdab.flights.Service;
 
 import be.vdab.flights.Repositories.FlightRepository;
+import be.vdab.flights.domain.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,11 @@ public class FlightService {
     @Autowired
     FlightRepository fr;
 
-    public List<Long> findAll() {
+    public List<Flight> findAll() {
 
         System.out.println("FlightService wordt gedelegeerd");
-        fr.findAll();
-        return fr.getFlights();
+        List<Flight> l = fr.findAll();
+        return l;
     }
 
 }

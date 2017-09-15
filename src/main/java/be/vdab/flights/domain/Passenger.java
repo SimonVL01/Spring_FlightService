@@ -1,9 +1,15 @@
 package be.vdab.flights.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +17,7 @@ import java.util.List;
  * Created by vdabcursist on 12/09/2017.
  */
 @Entity
+@XmlRootElement
 public class Passenger {
 
     public Passenger(String firstname, String lastname, int frequentFlyerMiles) {
@@ -24,9 +31,9 @@ public class Passenger {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @OneToMany(mappedBy = "passenger")
+    @OneToMany(mappedBy = "passenger", cascade = CascadeType.REMOVE)
     private List<Ticket> tickets = new ArrayList<>();
 
     private String firstname;
@@ -35,14 +42,16 @@ public class Passenger {
 
     private int frequentFlyerMiles;
 
-    public long getId() {
+    @XmlAttribute(name = "id")
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
+    @JsonProperty( "passenger firstname")
     public String getFirstname() {
         return firstname;
     }
@@ -51,6 +60,7 @@ public class Passenger {
         this.firstname = firstname;
     }
 
+    @JsonProperty("passenger lastname")
     public String getLastname() {
         return lastname;
     }
@@ -59,6 +69,7 @@ public class Passenger {
         this.lastname = lastname;
     }
 
+    @JsonIgnore
     public int getFrequentFlyerMiles() {
         return frequentFlyerMiles;
     }
@@ -72,5 +83,14 @@ public class Passenger {
         if(!ticket.getPassenger().equals(this)) {
             ticket.setPassenger(this);
         }
+    }
+
+    @JsonIgnore
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }

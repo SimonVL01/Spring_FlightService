@@ -4,6 +4,9 @@ import be.vdab.flights.domain.Flight;
 import be.vdab.flights.domain.Passenger;
 import be.vdab.flights.domain.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -17,11 +20,30 @@ import java.util.List;
  * Created by vdabcursist on 12/09/2017.
  */
 
-@Repository
-@Transactional
-public class TicketRepository {
+//@Repository
+//@Transactional
+public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    @PersistenceContext
+    List<Ticket> findByPriceIsGreaterThanOrderByPrice(double bound);
+
+    int countByPriceIsGreaterThanOrderByPrice(double bound);
+
+    int countTicketByPassengerEquals(Passenger passenger);
+
+    @Query(value = "SELECT COUNT(t) FROM Ticket t WHERE t.passenger = :p")
+    public int countTicketsPerPassenger(@Param("p") String passenger);
+
+    Ticket findByPrice(double price);
+
+    //@Query("INSERT INTO ticket(id, price, flight_id, passenger_id) values(:i, :p, :fl, :pa)")
+    //public Ticket addFullTicket(@Param("pa") Passenger passengerId, @Param("p") double price, @Param("fl") Flight flightId);
+
+}
+
+//@Query("select s from Spitters where s.email like '%gmail.com'")
+//List<Spitter> findAllGmailSpitters();
+
+    /*@PersistenceContext
     private EntityManager em;
 
     private Ticket ticket;
@@ -75,5 +97,4 @@ public class TicketRepository {
 
     public void save(Ticket t) {
         em.persist(t);
-    }
-}
+    }*/
